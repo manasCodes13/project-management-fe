@@ -143,6 +143,7 @@ const Register: React.FC = () => {
             Cancel
           </Button>,
           <Button
+            key="submit"
             className="bg-[#1677ff] text-white font-medium"
             onClick={otpVerificationAPIFunction}
           >
