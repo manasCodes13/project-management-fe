@@ -9,6 +9,7 @@ import { createAccountInterface } from "../authInterface";
 import axios from "axios";
 import { BASE_URL, register, verifyOtp } from "@/utils/networ";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 const Context = React.createContext({ name: "Default" });
 
@@ -132,6 +133,12 @@ const Register: React.FC = () => {
                   </Button>
                 </Form.Item>
               </Form>
+              <div>
+                Already have an account,{" "}
+                <Link href="/auth/login" className="text-blue-500">
+                  Sign in!
+                </Link>
+              </div>
             </div>
             {/* Right Side */}
             <div className="mobile:w-1/2">

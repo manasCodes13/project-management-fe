@@ -8,12 +8,17 @@ import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import axios from "axios";
 import { BASE_URL, login } from "@/utils/networ";
 import { createAccountInterface } from "../authInterface";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 const Context = React.createContext({ name: "Default" });
 
 const Login: React.FC = () => {
+  const router = useRouter();
+
   const [api, contextHolder] = notification.useNotification();
   const [loaded, setLoaded] = useState(false);
+  const [local, setLocal] = useState<any>(null);
 
   const openNotification = (placement: NotificationPlacement) => {
     api.success({
@@ -28,13 +33,22 @@ const Login: React.FC = () => {
     setLoaded(true);
   }, []);
 
+  useEffect(() => {
+    console.log("local", local);
+    if (local !== null) {
+      localStorage?.setItem("user", JSON.stringify(local?.data));
+      localStorage?.setItem("accessToken", local?.accessToken);
+    }
+  }, [local]);
+
   const loginAPIFunction = async (values: createAccountInterface | null) => {
     await axios
       .post(`${BASE_URL}${login}`, values)
       .then((res) => {
-        localStorage?.setItem("user", JSON.stringify(res?.data?.data));
-        localStorage?.setItem("accessToken", res?.data?.accessToken);
+        setLocal(res?.data);
+
         openNotification("topRight");
+        router.push("/home/dashboard");
       })
       .catch((err) => {
         console.log(err);
@@ -102,6 +116,12 @@ const Login: React.FC = () => {
                   </Button>
                 </Form.Item>
               </Form>
+              <div>
+                Dont&apos;t have an account!{" "}
+                <Link href="/auth/register" className="text-blue-500">
+                  Create an account
+                </Link>
+              </div>
             </div>
             {/* Right Side */}
             <div className="w-1/2">
