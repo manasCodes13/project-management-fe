@@ -26,6 +26,7 @@ const Register: React.FC = () => {
       description: <Context.Consumer>{() => `Pleae Login`}</Context.Consumer>,
       placement,
     });
+    router.push("/auth/login");
   };
 
   const contextValue = useMemo(() => ({ name: "Ant Design" }), []);
@@ -46,9 +47,7 @@ const Register: React.FC = () => {
         otp: otp,
       })
       .then((res) => {
-        console.log("res", res.data);
         openNotification("topRight");
-        router.push("/auth/login");
       });
   };
 

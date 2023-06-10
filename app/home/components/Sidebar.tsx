@@ -10,14 +10,16 @@ const Sidebar = () => {
   const pathname = usePathname();
   const router = useRouter();
 
-  console.log("pathname", pathname);
-
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [path, setPath] = useState<any>();
+  const [path, setPath] = useState<any>(null);
 
   useEffect(() => {
     setPath(pathname);
   }, []);
+
+  useEffect(() => {
+    if (path !== null) router.push(path);
+  }, [path]);
 
   const showModal = () => {
     setIsModalOpen(true);
@@ -55,7 +57,6 @@ const Sidebar = () => {
             }`}
             onClick={() => {
               setPath("/home/dashboard");
-              router.push("/home/dashboard");
             }}
           >
             <MdSpaceDashboard
@@ -83,7 +84,6 @@ const Sidebar = () => {
             }`}
             onClick={() => {
               setPath("/home/projects");
-              router.push("/home/projects");
             }}
           >
             <MdSpaceDashboard

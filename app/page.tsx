@@ -9,13 +9,12 @@ export default function Home() {
 
   useEffect(() => {
     setAccessToken(localStorage.getItem("accessToken"));
+    if (accessToken) {
+      router.push("/home/dashboard");
+    } else {
+      router.push("/auth/login");
+    }
   }, []);
-
-  if (accessToken) {
-    router.push("/home/dashboard");
-  } else {
-    router.push("/auth/login");
-  }
 
   return <></>;
 }

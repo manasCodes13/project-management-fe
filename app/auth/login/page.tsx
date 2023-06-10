@@ -34,10 +34,10 @@ const Login: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    console.log("local", local);
     if (local !== null) {
       localStorage?.setItem("user", JSON.stringify(local?.data));
       localStorage?.setItem("accessToken", local?.accessToken);
+      router.push("/home/dashboard");
     }
   }, [local]);
 
@@ -48,7 +48,6 @@ const Login: React.FC = () => {
         setLocal(res?.data);
 
         openNotification("topRight");
-        router.push("/home/dashboard");
       })
       .catch((err) => {
         console.log(err);
